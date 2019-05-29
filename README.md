@@ -1,4 +1,6 @@
 # firstry
+app was created for python 3.7.3
+
 1.Run pip install -r requirements.txt
 2.Linux: python manage.py runserver
   Windows: py manage.py runserver
