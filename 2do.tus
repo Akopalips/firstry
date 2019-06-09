@@ -1,0 +1,12 @@
+2fix:
+
+1. Implicit variable name
+
+2. Part of the data is described by models, and part is not.
+
+3. Use raw sql queries instead of ORM
+
+4. Changing the structure of the database outside of migrations
+
+fortest
+fortest
