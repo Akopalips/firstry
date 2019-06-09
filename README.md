@@ -1,6 +1,16 @@
 # firstry
 
-app was created for python 3.7.3
+"""
+
+Project was made as test task:
+
+    parsing "h1" and "title" from sites' url.
+    
+The app was created for python 3.7.3
+
+"""
+
+Start:
 
 1.Run pip install -r requirements.txt
 
