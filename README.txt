@@ -19,7 +19,7 @@ Start:
     
 3.  ???
 
-4.. Profit!!
+4.  Profit!!
   
     site ip :   127.0.0.1 
     port :      8000
