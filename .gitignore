@@ -1,3 +1,3 @@
-testapp/migrations
-testapp/__pycache__
-firstry/__pycache__
+testapp/migrations/
+testapp/__pycache__/
+firstry/__pycache__/
