@@ -28,12 +28,21 @@ class Parsed_and_Logs:
 		# connect to db to create table with parsed results
 		self.db_conn = sqlite3.connect(db_file)
 		self.cursor_db = self.db_conn.cursor()
-		self.cursor_db.execute("""	CREATE TABLE IF NOT EXISTS Parsing_result 
+		self.cursor_db.execute("""	CREATE TABLE IF NOT EXISTS parsing_result 
 								(  
-									URL varchar(200) primary key not null , 
-									Logs_result text not null, 
-									Parsing_result text not null 
+									url varchar(200) primary key not null , 
+									logs_result text not null, 
+									parsing_result text not null 
 								);""")
+		# delete old data
+		self.cursor_db.execute("""	delete from Parsing_result
+									where URL 
+									in (
+										select Parsing_result.url
+										from Parsing_result
+										left join testapp_site2pars
+										on Parsing_result.url = testapp_site2pars.url
+										where testapp_site2pars.url IS NULL);""")
 		self.parsed = ''
 		self.logs = ''
 
@@ -48,13 +57,13 @@ class Parsed_and_Logs:
 
 		# parsing new urls
 		# columns: 'parsed_date'-'date/time'-'url'
-		for row in self.cursor_db.execute("""select testapp_site2pars.time, testapp_site2pars.URL 
-										from testapp_site2pars 
-										left join Parsing_result on Parsing_result.URL = testapp_site2pars.URL 
-										where Parsing_result.URL IS NULL;"""):
+		for row in self.cursor_db.execute("""	select testapp_site2pars.time, testapp_site2pars.url 
+							from testapp_site2pars 
+							left join parsing_result 
+							on parsing_result.url = testapp_site2pars.url 
+							where parsing_result.url IS NULL;"""):
 			result = Parsing_result(row)
-			self.cursor_db.executescript(
-									f'	insert into Parsing_result values ("{row[1]}","{result[0]}","{result[1]}");')
+			self.cursor_db.executescript(f'insert into parsing_result values ("{row[1]}","{result[0]}","{result[1]}");')
 			self.parsed += result[1]
 			self.logs += result[0]
 
